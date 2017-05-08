@@ -22,6 +22,9 @@ public class Port extends IdentityModel {
     @Column(name = "uncode")
     private String uncode;
 
+    @Column(name = "portid")
+    private String portId;
+
     public Port() {
     }
 
@@ -44,5 +47,13 @@ public class Port extends IdentityModel {
 
     public void setUncode(String uncode) {
         this.uncode = uncode;
+    }
+
+    public String getPortId() {
+        return portId;
+    }
+
+    public void setPortId(String portId) {
+        this.portId = portId;
     }
 }

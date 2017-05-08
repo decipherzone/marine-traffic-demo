@@ -48,7 +48,8 @@ public class PortDao {
     }
 
     /**
-     * @param portExpectedArrivalList
+     * This method save port expected arrival list
+     * @param portExpectedArrivalList : list of vessel of expected arrivals
      * @return
      */
     public Map<String, Object> savePortExpectedArrivals(List<PortExpectedArrival> portExpectedArrivalList) {
@@ -63,6 +64,12 @@ public class PortDao {
             transaction = session.getTransaction();
 
             transaction.begin();
+
+            for (PortExpectedArrival portExpectedArrival : portExpectedArrivalList) {
+                if(portExpectedArrival != null) {
+                    session.save(portExpectedArrival);
+                }
+            }
 
             transaction.commit();
 

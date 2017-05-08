@@ -14,5 +14,6 @@
         <mapping class="com.decipherzone.loginno.model.Vessel"/>
         <mapping class="com.decipherzone.loginno.model.Port"/>
         <mapping class="com.decipherzone.loginno.model.VesselRouteStatus"/>
+        <mapping class="com.decipherzone.loginno.model.PortExpectedArrival"/>
     </session-factory>
 </hibernate-configuration>

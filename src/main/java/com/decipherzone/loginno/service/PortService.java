@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by decipher on 8/5/17.
@@ -34,7 +35,7 @@ public class PortService {
             PortExpectedArrival portExpectedArrival = null;
             List<PortExpectedArrival> portExpectedArrivalList = new ArrayList<>();
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
             String mmsi = "";
             Double latitude = 0.0;
@@ -52,13 +53,14 @@ public class PortService {
 
                     if (vesselArrivalObj != null) {
 
+                        portExpectedArrival = new PortExpectedArrival();
                         latitude = Double.parseDouble(vesselArrivalObj.get("LAT").toString());
                         longitude = Double.parseDouble(vesselArrivalObj.get("LON").toString());
                         mmsi = (String) vesselArrivalObj.get("MMSI");
                         currentPort = (String) vesselArrivalObj.get("CURRENT_PORT");
                         currentPortCountry = (String) vesselArrivalObj.get("CURRENT_PORT_COUNTRY");
                         nextPortUnCode = (String) vesselArrivalObj.get("NEXT_PORT_UNLOCODE");
-                        estimatedDate = (String) vesselArrivalObj.get("birthdate");
+                        estimatedDate = (String) vesselArrivalObj.get("ETA");
 
                         estimateTimeOfArrival = dateFormat.parse(estimatedDate);
 
@@ -71,6 +73,7 @@ public class PortService {
                         portExpectedArrival.setNextPortUnCode(nextPortUnCode);
                         portExpectedArrival.setEstimateTimeOfArrival(estimateTimeOfArrival);
                         portExpectedArrival.setLastUpdatedAt(new Date());
+                        portExpectedArrival.setUploaded(true);
 
                         portExpectedArrivalList.add(portExpectedArrival);
                     }
@@ -78,7 +81,7 @@ public class PortService {
 
                 portDao.savePortExpectedArrivals(portExpectedArrivalList);
             } catch (Exception e) {
-                System.out.println("Error while ");
+                System.out.println("Error while getting expected arrival in saveExpectedArrivalOnPort() " + e);
             }
 
         }

@@ -32,7 +32,7 @@ public class ApplicationInitializer implements ServletContextListener {
         session.getTransaction().commit();
         session.close();
 
-//        VesselRouteStatusScheduler.startVesselPortScheduler();
+        VesselRouteStatusScheduler.startVesselPortScheduler();
     }
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {

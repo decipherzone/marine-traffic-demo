@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class PortExpectedArrivalsService {
 
+    /**
+     * This method hit respective api and get data for expected arrival of ports
+     */
     public void getExpectedArrivalsOnPort() {
 
         PortService portService = new PortService();
@@ -31,16 +34,15 @@ public class PortExpectedArrivalsService {
         JSONParser jsonParser = new JSONParser();
         String output = "";
         JSONArray resultArray = null;
-
-
         try {
 
+//            System.out.println("URL : " + apiUrl + "expectedarrivals/v:3/58d19e48d0faf49bac02e18a2e5d2e575587174d/portid:1458/protocol:jsono/fromdate:2017-05-08 03:00:00/timespan:1");
             for (Port port : portList) {
 
                 System.out.println("Vessel Name : " + port.getUncode());
                 httpClient = new DefaultHttpClient();
 
-                getRequest = new HttpGet(apiUrl + "expectedarrivals/v:3/22a3ca6fd5f4cbc33f6f5b2a52ec9b1eab63c17f/protocol:jsono/ fromdate:2017-05-08 03:00:00/timespan:1/portid:"+ port.getUncode());
+                getRequest = new HttpGet(apiUrl + "expectedarrivals/v:3/58d19e48d0faf49bac02e18a2e5d2e575587174d/portid:"+port.getPortId()+"/protocol:jsono/timespan:1");
 
                 response = httpClient.execute(getRequest);
 
@@ -55,9 +57,10 @@ public class PortExpectedArrivalsService {
                 while ((output = br.readLine()) != null) {
                     System.out.println(output);
 
+//                output = "[{\"MMSI\":\"431138000\",\"LAT\":\"21.256180\",\"LON\":\"-158.472100\",\"SPEED\":\"10\",\"COURSE\":\"138\",\"STATUS\":\"0\",\"PORT_ID\":\"\",\"PORT_UNLOCODE\":\"\",\"CURRENT_PORT\":\"\",\"CURRENT_PORT_COUNTRY\":\"\",\"NEXT_PORT_ID\":\"1458\",\"NEXT_PORT_UNLOCODE\":\"USHNL\",\"NEXT_PORT_NAME\":\"HONOLULU \",\"NEXT_PORT_COUNTRY\":\"US\",\"ETA\":\"2017-05-08T19:00:00\",\"ETA_CALC\":\"2017-05-08T14:10:00\",\"ETA_UPDATED\":\"2017-05-08T11:13:00\",\"TIMESTAMP\":\"2017-05-08T11:44:00\"},{\"MMSI\":\"367007920\",\"LAT\":\"21.160660\",\"LON\":\"-157.656500\",\"SPEED\":\"75\",\"COURSE\":\"289\",\"STATUS\":\"0\",\"PORT_ID\":\"\",\"PORT_UNLOCODE\":\"\",\"CURRENT_PORT\":\"\",\"CURRENT_PORT_COUNTRY\":\"\",\"NEXT_PORT_ID\":\"1458\",\"NEXT_PORT_UNLOCODE\":\"USHNL\",\"NEXT_PORT_NAME\":\"HONOLULU \",\"NEXT_PORT_COUNTRY\":\"US\",\"ETA\":\"2017-05-08T05:00:00\",\"ETA_CALC\":\"2017-05-08T14:02:00\",\"ETA_UPDATED\":\"2017-05-08T10:10:00\",\"TIMESTAMP\":\"2017-05-08T12:26:54\"},{\"MMSI\":\"538001647\",\"LAT\":\"21.230850\",\"LON\":\"-154.980200\",\"SPEED\":\"104\",\"COURSE\":\"278\",\"STATUS\":\"0\",\"PORT_ID\":\"\",\"PORT_UNLOCODE\":\"\",\"CURRENT_PORT\":\"\",\"CURRENT_PORT_COUNTRY\":\"\",\"NEXT_PORT_ID\":\"1458\",\"NEXT_PORT_UNLOCODE\":\"USHNL\",\"NEXT_PORT_NAME\":\"HONOLULU \",\"NEXT_PORT_COUNTRY\":\"US\",\"ETA\":\"2017-05-08T18:00:00\",\"ETA_CALC\":\"2017-05-09T05:53:00\",\"ETA_UPDATED\":\"2017-05-08T11:12:00\",\"TIMESTAMP\":\"2017-05-08T12:17:00\"},{\"MMSI\":\"564015000\",\"LAT\":\"21.166610\",\"LON\":\"-159.989100\",\"SPEED\":\"128\",\"COURSE\":\"155\",\"STATUS\":\"0\",\"PORT_ID\":\"\",\"PORT_UNLOCODE\":\"\",\"CURRENT_PORT\":\"\",\"CURRENT_PORT_COUNTRY\":\"\",\"NEXT_PORT_ID\":\"1458\",\"NEXT_PORT_UNLOCODE\":\"USHNL\",\"NEXT_PORT_NAME\":\"HONOLULU \",\"NEXT_PORT_COUNTRY\":\"US\",\"ETA\":\"2017-05-08T13:00:00\",\"ETA_CALC\":\"2017-05-08T22:24:00\",\"ETA_UPDATED\":\"2017-05-08T10:51:00\",\"TIMESTAMP\":\"2017-05-08T12:18:00\"}]";
                     resultArray = (JSONArray) jsonParser.parse(output);
 
-                    if(resultArray != null) {
+                    if (resultArray != null) {
                         portService.saveExpectedArrivalOnPort(port, resultArray);
                     }
                 }
@@ -66,7 +69,7 @@ public class PortExpectedArrivalsService {
             }
 
         } catch (Exception e) {
-            System.out.println("Error while ");
+            System.out.println("Error while getting data for expected arrival for port in PortExpectedArrivalsService(): " + e);
         }
 
     }
