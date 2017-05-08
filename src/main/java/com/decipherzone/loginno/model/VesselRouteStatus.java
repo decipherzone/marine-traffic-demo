@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "vessel_route_status")
-public class VesselRouteStatus extends IdentityModel {
+public final class VesselRouteStatus extends IdentityModel {
 
     @OneToOne
     @JoinColumn(name = "vesselid")

@@ -31,7 +31,8 @@ public class VesselRouteStatusScheduler {
             scheduler = stdSchedulerFactory.getScheduler();
 
             buildVesselPresentPortJob();
-            buildPortExpectedArrivalsJob();
+            /* Commented out so that it can be invoked from the service */
+            /*buildPortExpectedArrivalsJob();*/
 
             scheduler.start();
 

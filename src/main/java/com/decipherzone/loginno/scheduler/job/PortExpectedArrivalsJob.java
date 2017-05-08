@@ -8,7 +8,7 @@ import org.quartz.JobExecutionException;
 /**
  * Created by decipher on 8/5/17.
  */
-public class PortExpectedArrivalsJob implements Job{
+public final class PortExpectedArrivalsJob implements Job{
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 

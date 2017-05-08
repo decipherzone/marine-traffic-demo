@@ -8,7 +8,7 @@ import org.quartz.JobExecutionException;
 /**
  * Created by decipher on 6/5/17.
  */
-public class VesselRouteStatusJob implements Job {
+public final class VesselRouteStatusJob implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 

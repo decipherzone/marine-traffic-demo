@@ -15,9 +15,9 @@ import java.util.Locale;
 /**
  * Created by decipher on 8/5/17.
  */
-public class PortService {
+public final class PortService {
 
-    private PortDao portDao;
+    private final PortDao portDao;
 
     public PortService() {
         portDao = new PortDao();

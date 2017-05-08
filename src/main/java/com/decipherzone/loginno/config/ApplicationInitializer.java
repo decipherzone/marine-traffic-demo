@@ -14,8 +14,6 @@ import org.hibernate.Session;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ApplicationInitializer implements ServletContextListener {
 

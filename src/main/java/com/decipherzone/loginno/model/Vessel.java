@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "vessel")
-public class Vessel extends IdentityModel {
+public final class Vessel extends IdentityModel {
 
     @Column(name = "vesselid")
     private String vesselId;

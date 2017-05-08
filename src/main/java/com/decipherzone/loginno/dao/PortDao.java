@@ -15,9 +15,9 @@ import java.util.Map;
 /**
  * Created by decipher on 8/5/17.
  */
-public class PortDao {
+public final class PortDao {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public PortDao() {
         sessionFactory = HibernateUtil.getSessionFactory();
@@ -41,7 +41,8 @@ public class PortDao {
         } catch (Exception e) {
             System.out.println("Error while getting list of ports in getAllPorts() : " + e);
         } finally {
-            session.close();
+            if(session != null)
+                session.close();
         }
 
         return portList;
@@ -77,9 +78,14 @@ public class PortDao {
             addArrivalMap.put("portArrival", portExpectedArrivalList);
             System.out.println("Expected arrivals on port information has been saved");
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             System.out.println("Error while adding expected arrivals on port information in savePortExpectedArrivals() : " + e);
         } finally {
-            session.close();
+            if (session != null) {
+                session.close();
+            }
         }
 
         return addArrivalMap;

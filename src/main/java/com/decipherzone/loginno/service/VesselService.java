@@ -1,6 +1,7 @@
 package com.decipherzone.loginno.service;
 
 import com.decipherzone.loginno.dao.VesselDao;
+import com.decipherzone.loginno.errors.DataNotAvailableException;
 import com.decipherzone.loginno.model.Vessel;
 import com.decipherzone.loginno.model.VesselRouteStatus;
 import org.json.simple.JSONArray;
@@ -13,9 +14,9 @@ import java.util.Map;
 /**
  * Created by decipher on 6/5/17.
  */
-public class VesselService {
+public final class VesselService {
 
-    private VesselDao vesselDao;
+    private final VesselDao vesselDao;
 
     public VesselService() {
         this.vesselDao = new VesselDao();
@@ -36,29 +37,34 @@ public class VesselService {
      * @param vessel : object of vessel from which vessel route status is belonged
      * @return
      */
-    public Map<String, Object> addVesselRouteStatus(Vessel vessel, JSONArray resultArray) {
+    public Map<String, Object> addVesselRouteStatus(Vessel vessel, JSONArray resultArray) throws DataNotAvailableException {
 
-        JSONObject resultObj = (JSONObject) resultArray.get(0);
+        if(resultArray != null && !resultArray.isEmpty()) {
+            JSONObject resultObj = (JSONObject) resultArray.get(0);
 
-        Double latitude = Double.parseDouble(resultObj.get("LAT").toString());
-        Double longitude = Double.parseDouble(resultObj.get("LON").toString());
-        Integer currentPortId = Integer.parseInt(resultObj.get("PORT_ID").toString());
-        String currentPort = (String) resultObj.get("CURRENT_PORT");
-        Integer lastPortId = Integer.parseInt(resultObj.get("LAST_PORT_ID").toString());
-        Integer nextPortId = Integer.parseInt(resultObj.get("NEXT_PORT_ID").toString());
+            Double latitude = Double.parseDouble(resultObj.get("LAT").toString());
+            Double longitude = Double.parseDouble(resultObj.get("LON").toString());
+            Integer currentPortId = Integer.parseInt(resultObj.get("PORT_ID").toString());
+            String currentPort = (String) resultObj.get("CURRENT_PORT");
+            Integer lastPortId = Integer.parseInt(resultObj.get("LAST_PORT_ID").toString());
+            Integer nextPortId = Integer.parseInt(resultObj.get("NEXT_PORT_ID").toString());
 
-        VesselRouteStatus vesselRouteStatus = new VesselRouteStatus();
+            VesselRouteStatus vesselRouteStatus = new VesselRouteStatus();
 
-        vesselRouteStatus.setVessel(vessel);
-        vesselRouteStatus.setLatitude(latitude);
-        vesselRouteStatus.setLongitude(longitude);
-        vesselRouteStatus.setCurrentPortId(currentPortId);
-        vesselRouteStatus.setCurrentPort(currentPort);
-        vesselRouteStatus.setLastPortId(lastPortId);
-        vesselRouteStatus.setNextPortId(nextPortId);
-        vesselRouteStatus.setLastUpdatedTime(new Date());
+            vesselRouteStatus.setVessel(vessel);
+            vesselRouteStatus.setLatitude(latitude);
+            vesselRouteStatus.setLongitude(longitude);
+            vesselRouteStatus.setCurrentPortId(currentPortId);
+            vesselRouteStatus.setCurrentPort(currentPort);
+            vesselRouteStatus.setLastPortId(lastPortId);
+            vesselRouteStatus.setNextPortId(nextPortId);
+            vesselRouteStatus.setLastUpdatedTime(new Date());
 
-        return vesselDao.addVesselRouteStatus(vesselRouteStatus);
+            return vesselDao.addVesselRouteStatus(vesselRouteStatus);
+        }
+
+        throw new DataNotAvailableException();
+
     }
 
 }

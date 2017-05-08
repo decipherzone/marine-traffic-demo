@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "port_expected_arrival")
-public class PortExpectedArrival extends IdentityModel {
+public final class PortExpectedArrival extends IdentityModel {
 
     @OneToOne
     @JoinColumn(name = "portid")

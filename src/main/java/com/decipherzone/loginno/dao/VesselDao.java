@@ -14,9 +14,9 @@ import java.util.*;
 /**
  * Created by decipher on 6/5/17.
  */
-public class VesselDao {
+public final class VesselDao {
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public VesselDao() {
         sessionFactory = HibernateUtil.getSessionFactory();
