@@ -8,11 +8,21 @@
     <listener>
         <listener-class>com.decipherzone.loginno.config.ApplicationInitializer</listener-class>
     </listener>
+    <servlet>
+        <servlet-name>homeServlet</servlet-name>
+        <servlet-class>com.decipherzone.loginno.servlet.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>homeServlet</servlet-name>
+        <url-pattern>/updateVesselInformation</url-pattern>
+    </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <trim-directive-whitespaces>true</trim-directive-whitespaces>
         </jsp-property-group>
     </jsp-config>
-
+    
+    
+    
 </web-app>
