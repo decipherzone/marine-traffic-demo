@@ -11,7 +11,7 @@ import java.util.Date;
 public class PortExpectedArrival extends IdentityModel {
 
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "portid")
     private Port port;
 
     @Column(name = "mmsi")
@@ -37,6 +37,9 @@ public class PortExpectedArrival extends IdentityModel {
 
     @Column(name = "lastupdatedat")
     private Date lastUpdatedAt;
+
+    @Column(name = "uploaded")
+    private Boolean uploaded;
 
     public PortExpectedArrival() {
     }
@@ -111,5 +114,13 @@ public class PortExpectedArrival extends IdentityModel {
 
     public void setLastUpdatedAt(Date lastUpdatedAt) {
         this.lastUpdatedAt = lastUpdatedAt;
+    }
+
+    public Boolean getUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(Boolean uploaded) {
+        this.uploaded = uploaded;
     }
 }

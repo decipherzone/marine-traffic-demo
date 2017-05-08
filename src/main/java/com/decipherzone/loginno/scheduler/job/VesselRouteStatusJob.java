@@ -24,6 +24,5 @@ public class VesselRouteStatusJob implements Job {
         }
 
 
-
     }
 }

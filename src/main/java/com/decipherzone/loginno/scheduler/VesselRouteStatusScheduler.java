@@ -30,7 +30,7 @@ public class VesselRouteStatusScheduler {
 
             scheduler = stdSchedulerFactory.getScheduler();
 
-//            buildVesselPresentPortJob();
+            buildVesselPresentPortJob();
             buildPortExpectedArrivalsJob();
 
             scheduler.start();
@@ -88,6 +88,11 @@ public class VesselRouteStatusScheduler {
 
     }
 
+    /**
+     * This method stop scheduler
+     *
+     * @return
+     */
     public static boolean stopScheduler() {
         try {
 
